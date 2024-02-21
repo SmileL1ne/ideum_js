@@ -1,0 +1,11 @@
+{
+  "name": "ideum",
+  "version": "1.0.0",
+  "description": "Online platform for searching and sharing innovative ideas from innovative people!",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "Mustik",
+  "license": "ISC"
+}
