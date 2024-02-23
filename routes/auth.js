@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
+
+router.get('/register', (req, res) => {
+  res.render('register');
+});
 
 router.post('/register', async (req, res) => {
   try {
@@ -18,6 +23,10 @@ router.post('/register', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+router.get('/login', (req, res) => {
+  res.render('login')
 });
 
 router.post('/login', async (req, res) => {

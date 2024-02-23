@@ -6,6 +6,9 @@ const authRoutes = require('./routes/auth');
 const PORT = process.env.PORT || 3000
 const app = express();
 
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
 // Session middleware
 app.use(session({
   secret: 'mustik-session',
