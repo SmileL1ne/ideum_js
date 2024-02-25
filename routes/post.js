@@ -42,7 +42,7 @@ router.get('/:postId', async (req, res) => {
 
 
 // Update a post
-router.put('/:postId', async (req, res) => {
+router.post('/update/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
         const { title, content } = req.body;
@@ -50,21 +50,21 @@ router.put('/:postId', async (req, res) => {
         if (!updatedPost) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        res.json(updatedPost);
+        res.redirect(`/post/${updatedPost._id}`);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
 // Delete a post
-router.delete('/:postId', async (req, res) => {
+router.post('/delete/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
         const deletedPost = await Post.findByIdAndDelete(postId);
         if (!deletedPost) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        res.json({ message: 'Post deleted successfully' });
+        res.redirect('/')
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
