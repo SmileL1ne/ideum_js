@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
+const User = require('../models/user'); 
 
 // Render the page to create a new post
-router.get('/create', (req, res) => {
-    res.render('create_post');
+router.get('/create', async (req, res) => {
+    try {
+        const users = await User.find(); // Fetch all users
+        res.render('create_post', { users }); // Pass users data to the template
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Create a new post
@@ -12,23 +18,13 @@ router.post('/create', async (req, res) => {
     try {
         const { title, content, author } = req.body;
         const newPost = await Post.create({ title, content, author });
-        res.status(201).json(newPost);
+        res.redirect(`/post/${newPost._id}`);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Read all posts
-router.get('/', async (req, res) => {
-    try {
-        const posts = await Post.find();
-        res.json(posts);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Read a specific post
+// View a specific post
 router.get('/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
@@ -36,11 +32,14 @@ router.get('/:postId', async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        res.json(post);
+        // Fetch the author separately
+        const author = await User.findById(post.author);
+        res.render('view_post', { post, author });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Update a post
 router.put('/:postId', async (req, res) => {
