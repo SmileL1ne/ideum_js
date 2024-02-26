@@ -1,5 +1,5 @@
 const isAuthenticated = (req, res, next) => {
-    if (req.session.user) {
+    if (req.session.user || req.session.isAdmin) {
         next();
     } else {
         res.redirect('/auth/login'); 

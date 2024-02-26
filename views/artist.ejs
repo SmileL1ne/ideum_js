@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
-    <!-- Navbar -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= artist.name %></title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Ideum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,23 +46,45 @@
             </ul>
         </div>
     </nav>
-    
 
     <div class="container mt-5">
-        <h1 class="mb-4">All Posts</h1>
-        <% if (posts.length > 0) { %>
-            <div class="list-group">
-                <% posts.forEach(post => { %>
-                    <a href="/post/<%= post._id %>" class="list-group-item list-group-item-action">
-                        <h5 class="mb-1"><%= post.title %></h5>
-                        <p class="mb-1"><%= post.content %></p>
-                        <small>Author: <%= post.author.username %></small>
-                    </a>
-                <% }); %>
-            </div>
-        <% } else { %>
-            <p>No posts found.</p>
-        <% } %>
+      <div class="row">
+        <div class="col-md-4">
+          <img
+            src="<%= artist.image %>"
+            class="img-fluid"
+            alt="<%= artist.name %>"
+          />
+        </div>
+        <div class="col-md-8">
+          <h1><strong><%= artist.name %></strong></h1>
+          <h4><strong>Members:</strong></h4>
+          <ul>
+            <% artist.members.forEach(member => { %>
+            <li><%= member %></li>
+            <% }); %>
+          </ul>
+          <h5><strong>Creation Date:</strong> <%= artist.creationDate %></h5>
+          <h5><strong>First Album:</strong> <%= artist.firstAlbum %></h5>
+          <h5><strong>Concerts:</strong></h5>
+          <% if (datesLocations.datesLocations) { %> <%
+          Object.keys(datesLocations.datesLocations).forEach(location => { %>
+          <p>
+            <strong
+              ><%= location.replace(/-/g, ' ').toUpperCase().replace(/_/g, ' ')
+              %>:</strong
+            >
+          </p>
+          <ul>
+            <% datesLocations.datesLocations[location].forEach(date => { %>
+            <li><%= date %></li>
+            <% }); %>
+          </ul>
+          <% }); %> <% } else { %>
+          <p>No locations and dates available.</p>
+          <% } %>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

@@ -17,6 +17,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/artists">Artists</a>
+                </li>
+                
                 <% if (isAdmin) { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin">Admin</a>
@@ -26,6 +30,9 @@
                 <% if (isLoggedIn) { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/logout">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post/create">Create</a>
                     </li>
                 <% } else { %>
                     <li class="nav-item">
