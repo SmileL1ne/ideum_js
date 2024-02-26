@@ -68,8 +68,10 @@
                     </div>
                 <% } %>
                 <p class="card-text"><%= post.content.en %></p>
-                <p class="card-text">Author: <%= author.username %></p>
-                <p class="card-text">Created At: <%= post.createdAt %></p>
+                <p class="card-text mt-5">Author:</p>
+                <p class="card-text"><strong><%= post.author.username %></strong></p>
+                <p class="card-text mt-5">Created At:</p>
+                <p class="card-text"><strong><%= post.createdAt %></strong></p>
             </div>
             <div class="card-footer">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPostModal">Edit</button>
@@ -94,11 +96,11 @@
                     <form action="/post/update/<%= post._id %>" method="POST">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" value="<%= post.title %>" required>
+                            <input type="text" class="form-control" id="title" name="title" value="<%= post.title.en %>" required>
                         </div>
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea class="form-control" id="content" name="content" rows="5" required><%= post.content %></textarea>
+                            <textarea class="form-control" id="content" name="content" rows="5" required><%= post.content.en %></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </form>
@@ -111,6 +113,94 @@
       <hr />
       <h2>Sarvarov Mustafa | Group: SE-2203</h2>
     </footer>
+
+    <script type="text/javascript">
+      var linguJSON = {
+        languages: [
+          {
+            lang_name: "English",
+            lang_code: "en",
+            url_pattern: "?",
+          },
+          {
+            lang_name: "Russian",
+            lang_code: "ru",
+            url_pattern: "?",
+          },
+        ],
+        translated_segments: [
+          {
+              source: "<%= post.title.en %>",
+              target: "<%= post.title.ru %>"
+          },
+          {
+              source: "<%= post.content.en %>",
+              target: "<%= post.content.ru %>"
+          },
+          {
+            source: "Create Post",
+            target: "Создать пост",
+          },
+          {
+            source: "Created At:",
+            target: "Создано:",
+          },
+          {
+            source: "Artists",
+            target: "Музыканты",
+          },
+          {
+            source: "Admin",
+            target: "Админка",
+          }, 
+          {
+            source: "Logout",
+            target: "Выйти",
+          },
+          {
+            source: "Create",
+            target: "Создать",
+          },
+          {
+            source: "Register",
+            target: "Зарегестрироваться",
+          },
+          {
+            source: "Login",
+            target: "Войти",
+          },
+          {
+            source: "Sarvarov Mustafa | Group: SE-2203",
+            target: "Сарваров Мустафа | Группа: КИ-2203",
+          },
+          {
+            source: "Edit",
+            target: "Редактировать",
+          },
+          {
+            source: "Delete",
+            target: "Удалить",
+          },
+          {
+            source: "Edit Post",
+            target: "Редактировать пост",
+          },
+          {
+            source: "Title",
+            target: "Заголовок",
+          },
+          {
+            source: "Content",
+            target: "Содержание",
+          },
+          {
+            source: "Save Changes",
+            target: "Сохранить",
+          },
+        ]
+      };
+    </script>
+    <script src="/scripts/lingumania.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
