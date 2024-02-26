@@ -19,15 +19,6 @@
             <div class="form-group">
                 <label for="content">Content:</label>
                 <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="author">Author:</label>
-                <select class="form-control" id="author" name="author" required>
-                    <option value="" disabled selected>Select author</option>
-                    <% users.forEach(user => { %>
-                        <option value="<%= user._id %>"><%= user.username %></option>
-                    <% }) %>
-                </select>
             </div>            
             <button type="submit" class="btn btn-primary">Create Post</button>
         </form>
