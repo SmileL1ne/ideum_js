@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         res.render('home', { posts, isLoggedIn, isAdmin });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server Error' });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -29,7 +29,7 @@ router.get('/artists', async (req, res) => {
         res.render('artists', { artists, isAdmin, isLoggedIn });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server Error' });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -48,7 +48,7 @@ router.get('/artist/:id', isAuthenticated, async (req, res) => {
         res.render('artist', { artist, isAdmin, isLoggedIn, datesLocations });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server Error' });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 

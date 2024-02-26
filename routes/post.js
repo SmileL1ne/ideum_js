@@ -26,7 +26,7 @@ router.get('/create', async (req, res) => {
         const users = await User.find(); 
         res.render('create_post', { users, isAdmin, isLoggedIn }); 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -48,7 +48,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
         res.redirect(`/post/${newPost._id}`);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -62,13 +62,13 @@ router.get('/:postId', async (req, res) => {
         const postId = req.params.postId;
         const post = await Post.findById(postId);
         if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).render('error', { errorCode: 404, error: 'Post not found' });
         }
 
         const author = await User.findById(post.author);
         res.render('view_post', { post, author, isAdmin, isLoggedIn });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -80,11 +80,11 @@ router.post('/update/:postId', async (req, res) => {
         const { title, content } = req.body;
         const updatedPost = await Post.findByIdAndUpdate(postId, { title, content }, { new: true });
         if (!updatedPost) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).render('error', { errorCode: 404, error: 'Post not found' });
         }
         res.redirect(`/post/${updatedPost._id}`);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
@@ -94,11 +94,11 @@ router.post('/delete/:postId', async (req, res) => {
         const postId = req.params.postId;
         const deletedPost = await Post.findByIdAndDelete(postId);
         if (!deletedPost) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).render('error', { errorCode: 404, error: 'Post not found' });
         }
         res.redirect('/')
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
 
