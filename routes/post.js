@@ -10,8 +10,11 @@ router.use(isAuthenticated);
 
 router.get('/create', async (req, res) => {
     try {
-        const users = await User.find(); // Fetch all users
-        res.render('create_post', { users }); // Pass users data to the template
+        const isAdmin = req.session.isAdmin;
+        var isLoggedIn = (req.session.user || isAdmin) ? true : false;
+
+        const users = await User.find(); 
+        res.render('create_post', { users, isAdmin, isLoggedIn }); 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -33,14 +36,16 @@ router.post('/create', async (req, res) => {
 // View a specific post
 router.get('/:postId', async (req, res) => {
     try {
+        const isAdmin = req.session.isAdmin;
+        var isLoggedIn = (req.session.user || isAdmin) ? true : false;
+
         const postId = req.params.postId;
         const post = await Post.findById(postId);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        // Fetch the author separately
         const author = await User.findById(post.author);
-        res.render('view_post', { post, author });
+        res.render('view_post', { post, author, isAdmin, isLoggedIn });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

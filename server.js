@@ -31,6 +31,9 @@ app.use('/', homeRoute)
 const postRoutes = require('./routes/post')
 app.use('/post', postRoutes)
 
+const adminRoutes = require('./routes/admin');
+app.use('/admin', adminRoutes)
+
 
 app.listen(PORT, () => {
     console.log(`server running on ${PORT}`)

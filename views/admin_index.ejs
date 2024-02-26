@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Admin Panel</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Ideum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,20 +39,12 @@
     
 
     <div class="container mt-5">
-        <h1 class="mb-4">All Posts</h1>
-        <% if (posts.length > 0) { %>
-            <div class="list-group">
-                <% posts.forEach(post => { %>
-                    <a href="/post/<%= post._id %>" class="list-group-item list-group-item-action">
-                        <h5 class="mb-1"><%= post.title %></h5>
-                        <p class="mb-1"><%= post.content %></p>
-                        <small>Author: <%= post.author.username %></small>
-                    </a>
-                <% }); %>
-            </div>
-        <% } else { %>
-            <p>No posts found.</p>
-        <% } %>
+        <h1>Weclome again, master!</h1>
+        <ul class="list-group">
+            <% users.forEach(user => { %>
+                <li class="list-group-item"><%= user.username %></li>
+            <% }); %>
+        </ul>
     </div>
 </body>
 </html>

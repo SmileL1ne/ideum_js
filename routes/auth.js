@@ -5,7 +5,10 @@ const bcrypt = require('bcrypt');
 const isAuthenticated = require('../middlewares/auth'); 
 
 router.get('/register', (req, res) => {
-  res.render('register');
+  const isAdmin = req.session.isAdmin;
+  var isLoggedIn = (req.session.user || isAdmin) ? true : false;
+
+  res.render('register', {isAdmin, isLoggedIn});
 });
 
 router.post('/register', async (req, res) => {
@@ -28,12 +31,22 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  const isAdmin = req.session.isAdmin;
+  var isLoggedIn = (req.session.user || isAdmin) ? true : false;
+
+  res.render('login', {isAdmin, isLoggedIn})
 });
 
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      req.session.isAdmin = true;
+      res.redirect('/admin');
+      return
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -56,7 +69,7 @@ router.get('/logout', isAuthenticated, async(req, res) =>{
       console.error(err);
       res.status(500).send('Error');
     } else {
-      res.redirect('/auth/login');
+      res.redirect('/');
     }
   });
 })
