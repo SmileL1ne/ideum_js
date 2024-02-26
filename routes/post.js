@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user'); 
+const isAuthenticated = require('../middlewares/auth'); 
 
 // Render the page to create a new post
+
+router.use(isAuthenticated);
+
 router.get('/create', async (req, res) => {
     try {
         const users = await User.find(); // Fetch all users
@@ -16,8 +20,10 @@ router.get('/create', async (req, res) => {
 // Create a new post
 router.post('/create', async (req, res) => {
     try {
-        const { title, content, author } = req.body;
+        const { title, content} = req.body;
+        const author = req.session.user;
         const newPost = await Post.create({ title, content, author });
+        //res.json(req.body);
         res.redirect(`/post/${newPost._id}`);
     } catch (error) {
         res.status(500).json({ error: error.message });

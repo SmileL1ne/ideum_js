@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 dbConn()
 
 // Routes
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');  
 app.use('/auth', authRoutes);
 
 const homeRoute = require('./routes/home')
@@ -33,5 +33,5 @@ app.use('/post', postRoutes)
 
 
 app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`)
+    console.log(`server running on http://localhost:${PORT}`)
 })
