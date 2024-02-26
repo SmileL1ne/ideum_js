@@ -9,6 +9,10 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use('/uploads/', static('uploads/'));
 
+app.get('/scripts/lingumania.js', (req, res) => {
+  res.sendFile(__dirname + '/scripts/lingumania.js');
+});
+
 // Session middleware
 app.use(session({
   secret: 'mustik-session',

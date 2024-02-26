@@ -1,75 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Ideum</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/artists">Artists</a>
-                </li>
-                
-                <% if (isAdmin) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin</a>
-                    </li>
-                <% } %>
-                
-                <% if (isLoggedIn) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/logout">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/post/create">Create</a>
-                    </li>
-                <% } else { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Login</a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="/">Ideum</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-between"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/artists">Artists</a>
+          </li>
+          <% if (isAdmin) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+          </li>
+          <% } %> <% if (isLoggedIn) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/post/create">Create</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/login">Login</a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
     </nav>
-    
 
     <div class="container mt-5">
-        <h1 class="mb-4">All Posts</h1>
-      
-        <% if (posts.length > 0) { %>
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <% posts.forEach(post => { %>
-              <div class="col">
-                <div class="card shadow-sm h-100">
-                  <img src="<%= post.imageUrl %>" class="card-img-top" alt="<%= post.title %>">
-                  <div class="card-body">
-                    <h5 class="card-title"><%= post.title %></h5>
-                    <p class="card-text"><%= post.content.substring(0, 100) %></p>
-                    <p class="card-text">Author: <%= post.author.username %></p>
-                    <a href="/post/<%= post._id %>" class="btn btn-primary">Read More</a>
-                  </div>
-                </div>
-              </div>
-            <% }); %>
+      <h1 class="mb-4">All Posts</h1>
+
+      <% if (posts.length > 0) { %>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% posts.forEach(post => { %>
+        <div class="col">
+          <div class="card shadow-sm h-100">
+            <img
+              src="<%= post.imageUrl %>"
+              class="card-img-top"
+              alt="<%= post.title %>"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= post.content.substring(0, 100) %></p>
+              <p class="card-text">Author: <%= post.author.username %></p>
+              <a href="/post/<%= post._id %>" class="btn btn-primary"
+                >Read More</a
+              >
+            </div>
           </div>
-        <% } else { %>
-          <p>No posts found.</p>
-        <% } %>
+        </div>
+        <% }); %>
       </div>
-      
-    
-</body>
+      <% } else { %>
+      <p>No posts found.</p>
+      <% } %>
+    </div>
+
+    <h1>Ready to go global?</h1>
+    <h2>get found by search engines and visitors in other languages</h2>
+
+    <script type="text/javascript">
+      var linguJSON = {
+        languages: [
+          {
+            lang_name: "English",
+            lang_code: "en",
+            url_pattern: "?",
+          },
+          {
+            lang_name: "Español",
+            lang_code: "es",
+            url_pattern: "?",
+          },
+        ],
+        translated_segments: [
+          {
+            source: "Ready to go global?",
+            target: "¿Está listo para el mundo?",
+          },
+          {
+            source:
+              "get found by search engines and visitors in other languages",
+            target:
+              "sea encontrado por los motores de búsqueda en otros idiomas",
+          },
+          {
+            source: "Powered by <strong>Lingumania</strong>",
+            target: "Potenciado por <strong>Lingumania</strong>",
+          },
+        ],
+      };
+    </script>
+    <script src="/scripts/lingumania.js"></script>
+  </body>
 </html>
