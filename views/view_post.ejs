@@ -53,6 +53,11 @@
                 <h5 class="card-title"><%= post.title %></h5>
             </div>
             <div class="card-body">
+                <% if (post.imageUrl) { %>
+                    <div style="text-align: center;">
+                        <img src="/<%= post.imageUrl %>" class="img-fluid mb-3 mx-auto" alt="Post Image">
+                    </div>
+                <% } %>
                 <p class="card-text"><%= post.content %></p>
                 <p class="card-text">Author: <%= author.username %></p>
                 <p class="card-text">Created At: <%= post.createdAt %></p>

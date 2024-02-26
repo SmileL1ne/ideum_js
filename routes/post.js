@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const Post = require('../models/post');
 const User = require('../models/user'); 
 const isAuthenticated = require('../middlewares/auth'); 
 
-// Render the page to create a new post
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); 
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname); 
+    }
+});
+const upload = multer({ storage: storage });
 
 router.use(isAuthenticated);
 
@@ -21,12 +31,21 @@ router.get('/create', async (req, res) => {
 });
 
 // Create a new post
-router.post('/create', async (req, res) => {
+router.post('/create', upload.single('image'), async (req, res) => {
     try {
-        const { title, content} = req.body;
+        const { title, content } = req.body;
         const author = req.session.user;
-        const newPost = await Post.create({ title, content, author });
-        //res.json(req.body);
+        const imageUrl = req.file.path;
+
+        const newPost = new Post({
+            title,
+            content,
+            author,
+            imageUrl,
+        });
+
+        await newPost.save();
+
         res.redirect(`/post/${newPost._id}`);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -44,6 +63,7 @@ router.get('/:postId', async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
+
         const author = await User.findById(post.author);
         res.render('view_post', { post, author, isAdmin, isLoggedIn });
     } catch (error) {

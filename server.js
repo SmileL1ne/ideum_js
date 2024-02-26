@@ -1,12 +1,13 @@
 const dbConn = require('./config/db')
 const express = require('express');
 const session = require('express-session');
+const { static } = require('express');
 
 const PORT = process.env.PORT || 3000
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use('/uploads/', static('uploads/'));
 
 // Session middleware
 app.use(session({
