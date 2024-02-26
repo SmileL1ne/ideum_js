@@ -22,10 +22,25 @@ router.post('/delete/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).render('error', { errorCode: 404, error: 'User not found' });
         }
-        await user.remove();
-        res.json({ message: 'User deleted successfully' });
+
+        await user.deleteOne();
+        res.redirect('/admin');
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
+    }
+});
+
+// Route to view update user form
+router.get('/update/:id', async (req, res) => {
+    try {
+        const isAdmin = req.session.isAdmin;
+        const isLoggedIn = (req.session.user || isAdmin) ? true : false;
+        const user = await User.findById(req.params.id);
+
+        res.render('user_update', { user, isAdmin, isLoggedIn });
     } catch (error) {
         console.error(error);
         res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
@@ -39,14 +54,14 @@ router.post('/update/:id', async (req, res) => {
         const user = await User.findById(req.params.id);
 
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).render('error', { errorCode: 404, error: 'User not found' });
         }
 
         user.username = username;
         user.email = email;
         await user.save();
 
-        res.json({ message: 'User information updated successfully', user });
+        res.redirect('/admin/');
     } catch (error) {
         console.error(error);
         res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });

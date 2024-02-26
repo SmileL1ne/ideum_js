@@ -2,6 +2,7 @@ const dbConn = require('./config/db')
 const express = require('express');
 const session = require('express-session');
 const { static } = require('express');
+const isAuthenticatedAsAdmin = require('./middlewares/authAdmin')
 
 const PORT = process.env.PORT || 3000
 const app = express();
@@ -37,7 +38,7 @@ const postRoutes = require('./routes/post')
 app.use('/post', postRoutes)
 
 const adminRoutes = require('./routes/admin');
-app.use('/admin', adminRoutes)
+app.use('/admin', isAuthenticatedAsAdmin, adminRoutes)
 
 
 app.listen(PORT, () => {
