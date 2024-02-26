@@ -69,9 +69,10 @@
               alt="<%= post.title %>"
             />
             <div class="card-body">
-              <h5 class="card-title"><%= post.title %></h5>
-              <p class="card-text"><%= post.content.substring(0, 100) %></p>
-              <p class="card-text">Author: <%= post.author.username %></p>
+              <h5 class="card-title"><%= post.title.en %></h5>
+              <p class="card-text"><%= post.content.en.substring(0, 100) %></p>
+              <p class="card-text mt-5">Author:</p>
+              <p class="card-text"><strong><%= post.author.username %></strong></p>
               <a href="/post/<%= post._id %>" class="btn btn-primary"
                 >Read More</a
               >
@@ -85,9 +86,6 @@
       <% } %>
     </div>
 
-    <h1>Ready to go global?</h1>
-    <h2>get found by search engines and visitors in other languages</h2>
-
     <script type="text/javascript">
       var linguJSON = {
         languages: [
@@ -97,27 +95,67 @@
             url_pattern: "?",
           },
           {
-            lang_name: "Español",
-            lang_code: "es",
+            lang_name: "Russian",
+            lang_code: "ru",
             url_pattern: "?",
           },
         ],
         translated_segments: [
+          <% posts.forEach(post => { %>
+              {
+                  source: "<%= post.title.en %>",
+                  target: "<%= post.title.ru %>"
+              },
+              {
+                  source: "<%= post.content.en %>",
+                  target: "<%= post.content.ru %>"
+              },
+          <% }); %>
           {
-            source: "Ready to go global?",
-            target: "¿Está listo para el mundo?",
+            source: "Home",
+            target: "Главная страница",
           },
           {
-            source:
-              "get found by search engines and visitors in other languages",
-            target:
-              "sea encontrado por los motores de búsqueda en otros idiomas",
+            source: "Artists",
+            target: "Музыканты",
           },
           {
-            source: "Powered by <strong>Lingumania</strong>",
-            target: "Potenciado por <strong>Lingumania</strong>",
+            source: "Admin",
+            target: "Админка",
+          }, 
+          {
+            source: "Logout",
+            target: "Выйти",
           },
-        ],
+          {
+            source: "Create",
+            target: "Создать",
+          },
+          {
+            source: "Register",
+            target: "Зарегестрироваться",
+          },
+          {
+            source: "Login",
+            target: "Войти",
+          },
+          {
+            source: "All Posts",
+            target: "Все посты",
+          },
+          {
+            source: "Read More",
+            target: "Подробнее",
+          },
+          {
+            source: "No posts found.",
+            target: "Постов пока нет :(",
+          },
+          {
+            source: "Author:",
+            target: "Автор:",
+          }
+        ]
       };
     </script>
     <script src="/scripts/lingumania.js"></script>

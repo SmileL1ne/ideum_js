@@ -33,13 +33,13 @@ router.get('/create', async (req, res) => {
 // Create a new post
 router.post('/create', upload.single('image'), async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title_en, title_ru, content_en, content_ru } = req.body;
         const author = req.session.user;
         const imageUrl = req.file.path;
 
         const newPost = new Post({
-            title,
-            content,
+            title: { en: title_en, ru: title_ru }, 
+            content: { en: content_en, ru: content_ru },
             author,
             imageUrl,
         });
@@ -51,6 +51,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // View a specific post
 router.get('/:postId', async (req, res) => {

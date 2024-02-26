@@ -10,39 +10,48 @@
 
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Ideum</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/artists">Artists</a>
-                </li>
-                
-                <% if (isAdmin) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin</a>
-                    </li>
-                <% } %>
-                
-                <% if (isLoggedIn) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/logout">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/post/create">Create</a>
-                    </li>
-                <% } else { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Login</a>
-                    </li>
-                <% } %>
-            </ul>
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/artists">Artists</a>
+            </li>
+            <% if (isAdmin) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Admin</a>
+            </li>
+            <% } %> <% if (isLoggedIn) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/post/create">Create</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/login">Login</a>
+            </li>
+            <% } %>
+          </ul>
         </div>
     </nav>
     
@@ -51,13 +60,23 @@
         <h1 class="mb-4">Create New Post</h1>
         <form action="/post/create" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <label for="title_en">Title (English):</label>
+                <input type="text" class="form-control" id="title_en" name="title_en" required>
             </div>
             <div class="form-group">
-                <label for="content">Content:</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                <label for="title_ru">Title (Russian):</label>
+                <input type="text" class="form-control" id="title_ru" name="title_ru" required>
             </div>
+
+            <div class="form-group">
+                <label for="content_en">Content (English):</label>
+                <textarea class="form-control" id="content_en" name="content_en" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="content_ru">Content (Russian):</label>
+                <textarea class="form-control" id="content_ru" name="content_ru" rows="5" required></textarea>
+            </div>
+
             <div class="form-group">
                 <label for="image">Upload Image:</label>
                 <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
