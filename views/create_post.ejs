@@ -12,47 +12,54 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Ideum</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-between"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/artists">Artists</a>
-            </li>
-            <% if (isAdmin) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/admin">Admin</a>
-            </li>
-            <% } %> <% if (isLoggedIn) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/logout">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/post/create">Create</a>
-            </li>
-            <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/register">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/login">Login</a>
-            </li>
-            <% } %>
-          </ul>
-        </div>
+      <a class="navbar-brand" href="/">Ideum</a>
+    
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/artists">Artists</a>
+        </li>
+        <% if (isAdmin) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+        <% } %>
+        <% if (isLoggedIn) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/post/create">Create</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">Logout</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/login">Login</a>
+        </li>
+        <% } %>
+      </ul>
+    
+      <form class="form-inline mx-auto my-2 my-lg-0" action="/inspiration/search" method="POST">
+        <input class="form-control mr-sm-2" type="search" placeholder="Tall cactus" aria-label="Search" id="query" name="query">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarNav"
+      ></div>
     </nav>
     
 
@@ -160,6 +167,10 @@
           {
             source: "Create Post",
             target: "Создать пост",
+          },
+          {
+            source: "Search",
+            target: "Искать",
           },
         ]
       };
