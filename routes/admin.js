@@ -25,6 +25,8 @@ router.post('/delete/:id', async (req, res) => {
             return res.status(404).render('error', { errorCode: 404, error: 'User not found' });
         }
 
+        await Post.deleteMany({ author: user });
+
         await user.deleteOne();
         res.redirect('/admin');
     } catch (error) {
