@@ -26,6 +26,7 @@ router.get('/create', async (req, res) => {
         const users = await User.find(); 
         res.render('create_post', { users, isAdmin, isLoggedIn }); 
     } catch (error) {
+        console.log(error)
         res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });
@@ -48,6 +49,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
         res.redirect(`/post/${newPost._id}`);
     } catch (error) {
+        console.log(error)
         res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
     }
 });

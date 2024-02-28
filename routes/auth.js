@@ -40,12 +40,6 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-      req.session.isAdmin = true;
-      res.redirect('/admin');
-      return
-    }
-
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).render('error', { errorCode: 404, error: 'User not found' });
@@ -55,8 +49,15 @@ router.post('/login', async (req, res) => {
       return res.status(401).render('error', { errorCode: 401, error: 'Invalid email or password' })
     }
     req.session.user = user;
+
+    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      req.session.isAdmin = true;
+      res.redirect('/admin');
+      return
+    }
     res.redirect('/')
   } catch (error) {
+    console.log(error)
     res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
   }
 });
