@@ -40,8 +40,8 @@ router.post('/create', upload.single('image'), async (req, res) => {
         const newPost = new Post({
             title: { en: title_en, ru: title_ru }, 
             content: { en: content_en, ru: content_ru },
-            author,
-            imageUrl,
+            author: author,
+            imageUrl: imageUrl,
         });
 
         await newPost.save();
@@ -66,7 +66,6 @@ router.get('/:postId', async (req, res) => {
         }
 
         const author = await User.findById(post.author);
-
         res.render('view_post', { post, author, isAdmin, isLoggedIn });
     } catch (error) {
         res.status(500).render('error', { errorCode: 500, error: 'Internal Server Error' });
