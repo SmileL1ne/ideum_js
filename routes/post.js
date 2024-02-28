@@ -80,7 +80,7 @@ router.post('/update/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
         const { title, content } = req.body;
-        const updatedPost = await Post.findByIdAndUpdate(postId, { title, content }, { new: true });
+        const updatedPost = await Post.findByIdAndUpdate(postId, { "title.en": title, "content.en": content }, { new: true });
         if (!updatedPost) {
             return res.status(404).render('error', { errorCode: 404, error: 'Post not found' });
         }
